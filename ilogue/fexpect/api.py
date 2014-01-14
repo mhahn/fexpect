@@ -2,10 +2,24 @@ import fabric.api
 from ilogue.fexpect.internals import wrapExpectations, wrapExpectationsLocal, ExpectationContext
 
 
-def expect(promptexpr, response, exitAfter=-1):
-    if not exitAfter == -1:
-        return [(promptexpr, response, exitAfter)]
-    return [(promptexpr, response)]
+def expect(prompt, response, exit_after=None, hide_input=False):
+    """Return an expectation structure.
+
+    :Params:
+        - `prompt`: the speicic prompt we're looking for
+        - `response`: the response to give
+        - `exit_after`: number of seconds we should exit after
+        - `hide_input`: boolean for whether or not we should hide the input
+
+    """
+    return [
+        {
+            'prompt': prompt,
+            'response': response,
+            'exit_after': exit_after,
+            'hide_input': hide_input,
+        }
+    ]
 
 def expecting(e):
     return ExpectationContext(e)

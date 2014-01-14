@@ -44,7 +44,7 @@ def createScript(cmd):
     #write expectation list:
     s+= 'expectations=['
     for e in fabric.state.env.expectations:
-        s+= '"{0}",'.format(e[0])
+        s+= '"{0}",'.format(e['prompt'])
     s+= ']\n'
     #start
     spwnTem = """child = pexpect.spawn(\"\"\"{shellPrefix}{shell} "{cmd}" \"\"\",timeout={to})\n"""
@@ -57,9 +57,13 @@ def createScript(cmd):
     for e in fabric.state.env.expectations:
         ifkeyw = 'if' if i == 0 else 'elif'
         s+= "\t\t{0} i == {1}:\n".format(ifkeyw,i)
-        s+= "\t\t\tchild.sendline('{0}')\n".format(e[1])
-        if len(e)>2:
-            s+= "\t\t\tsleep({0})\n".format(e[2])
+        if e['hide_input']:
+            s+= "\t\t\tchild.logfile = None\n"
+        s+= "\t\t\tchild.sendline('{0}')\n".format(e['response'])
+        if e['hide_input']:
+            s+= "\t\t\tchild.logfile = sys.stdout\n"
+        if e['exit_after']:
+            s+= "\t\t\tsleep({0})\n".format(e['exit_after'])
             s+= "\t\t\tprint('Exiting fexpect for expected exit.')\n"
             s+= '\t\t\tbreak\n'
         i += 1
