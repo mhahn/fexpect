@@ -1,5 +1,9 @@
 import fabric.api
-from ilogue.fexpect.internals import wrapExpectations, wrapExpectationsLocal, ExpectationContext
+from .internals import (
+    wrapExpectations,
+    wrapExpectationsLocal,
+    ExpectationContext,
+)
 
 
 def expect(prompt, response, exit_after=None, hide_input=False):

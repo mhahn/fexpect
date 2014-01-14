@@ -18,11 +18,10 @@ setup(name='fexpect',
       url='http://ilogue.com',
       keywords='ilogue',
       packages=find_packages(),
-      namespace_packages = ['ilogue'],
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
       tests_require=['fabric>=1.0','pexpect','shortuuid'],
-      test_suite="ilogue.fexpect.tests",
+      test_suite="fexpect.tests",
       )
 
