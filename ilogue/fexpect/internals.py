@@ -23,7 +23,7 @@ def wrapExpectations(cmd):
     fabric.api.put(pexpect_module,'/tmp/', mode=0777) 
     fabric.api.put(StringIO(script),remoteScript)
     wrappedCmd = 'python '+remoteScript
-    return wrappedCmd
+    return wrappedCmd, remoteScript
 
 def wrapExpectationsLocal(cmd):
     script = createScript(cmd)
